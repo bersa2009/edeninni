@@ -1,0 +1,29 @@
+{
+  "models": {
+    "baby_sound_classifier": {
+      "name": "Baby Sound Classifier",
+      "version": "1.0.0",
+      "path": "./models/baby_sound_model.tflite",
+      "input_size": [1, 44100, 1],
+      "output_classes": ["ağlama", "gaz", "açlık", "uyku", "normal"],
+      "threshold": 0.7
+    }
+  },
+  "federated_learning": {
+    "enabled": true,
+    "update_interval_days": 7,
+    "anonymous_only": true,
+    "server_url": null
+  },
+  "security": {
+    "encryption": "AES-256",
+    "data_retention_days": 30,
+    "auto_delete": true
+  },
+  "privacy": {
+    "kvkk_compliant": true,
+    "gdpr_compliant": true,
+    "data_location": "local_only",
+    "no_server_upload": true
+  }
+}
