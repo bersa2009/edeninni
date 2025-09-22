@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sakinleştirme Rehberi</title>
+  <style>
+    :root { --blue: #2563eb; --bg: #f8fafc; --text: #0f172a; --muted:#475569; --card:#ffffff; --border:#e2e8f0; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; background: var(--bg); color: var(--text); }
+    .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+    header { text-align: center; margin: 16px 0 24px; }
+    header h1 { margin: 0; font-size: 28px; color: var(--blue); font-weight: 700; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 300px)); gap: 16px; justify-content: center; align-items: stretch; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.04); display: flex; flex-direction: column; width: 300px; height: 150px; overflow: hidden; }
+    .card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+    .icon { width: 28px; height: 28px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; background: #eff6ff; color: var(--blue); }
+    .title { font-size: 18px; font-weight: 700; margin: 0; }
+    .desc { font-size: 14px; color: var(--muted); margin: 6px 0 12px; line-height: 1.4; }
+    .video-wrap { flex: 1 1 auto; min-height: 0; width: 100%; background: #000; border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+    video { width: 100%; height: 100%; object-fit: cover; display: block; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header role="banner" aria-label="Sakinleştirme Rehberi Başlık">
+      <h1>Sakinleştirme Rehberi</h1>
+    </header>
+
+    <section class="grid" aria-label="Sakinleştirme önerileri">
+      <!-- Açlık Card -->
+      <article class="card" aria-labelledby="title-aclik">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">🤱</span>
+          <h2 id="title-aclik" class="title">Açlık</h2>
+        </div>
+        <p class="desc">Bebeğiniz aç olabilir. Emzirme veya biberon ile sakinleşebilir.</p>
+        <div class="video-wrap">
+          <video controls preload="metadata" aria-label="Açlık için sakinleştirme videosu">
+            <source src="https://interactive-examples.mdn.mozilla.org/media/cc0-videos/flower.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </div>
+      </article>
+
+      <!-- Gaz Card -->
+      <article class="card" aria-labelledby="title-gaz">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">🚲</span>
+          <h2 id="title-gaz" class="title">Gaz</h2>
+        </div>
+        <p class="desc">Gaz sancısı için bisiklet hareketi ve karın masajı rahatlatabilir.</p>
+        <div class="video-wrap">
+          <video controls preload="metadata" aria-label="Gaz için sakinleştirme videosu">
+            <source src="https://interactive-examples.mdn.mozilla.org/media/cc0-videos/flower.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </div>
+      </article>
+
+      <!-- Uykusuzluk Card -->
+      <article class="card" aria-labelledby="title-uykusuzluk">
+        <div class="card-header">
+          <span class="icon" aria-hidden="true">💤</span>
+          <h2 id="title-uykusuzluk" class="title">Uykusuzluk</h2>
+        </div>
+        <p class="desc">Kundaklama ve beyaz gürültü bebeğin uykuya dalmasına yardımcı olabilir.</p>
+        <div class="video-wrap">
+          <video controls preload="metadata" aria-label="Uykusuzluk için sakinleştirme videosu">
+            <source src="https://interactive-examples.mdn.mozilla.org/media/cc0-videos/flower.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
+
