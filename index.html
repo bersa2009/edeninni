@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebek Ses Çözücü</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to top, #cffafe, #dbeafe);
+        }
+        .option-btn {
+            border-width: 2px;
+            border-color: #e5e7eb;
+        }
+        .option-btn.selected {
+            background-color: #e0f2fe; /* sky-100 */
+            border-color: #0ea5e9;    /* sky-500 */
+            color: #0369a1;           /* sky-700 */
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const CRY_OPTIONS = [
+                'Açlık',
+                'Gaz',
+                'Uykusuzluk',
+                'Altı Islak/Kirli',
+                'Aşırı Isı/Soğuk',
+                'Ağrı/Rahatsızlık',
+                'Aşırı Uyarılma',
+                'İlgi/Temas'
+            ];
+
+            const openBtn = document.getElementById('btnCryAnalysis');
+            const section = document.getElementById('cryAnalysisSection');
+            const grid = document.getElementById('cryOptionsGrid');
+            const clearBtn = document.getElementById('clearSelections');
+
+            // Render seçenekler
+            CRY_OPTIONS.forEach(function (label) {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'option-btn rounded-xl px-4 py-3 text-sm font-medium text-gray-700 hover:border-sky-400 hover:text-sky-700 transition';
+                btn.textContent = label;
+                btn.setAttribute('data-value', label);
+                btn.addEventListener('click', function () {
+                    btn.classList.toggle('selected');
+                });
+                grid.appendChild(btn);
+            });
+
+            // Bölümü aç/kapat
+            openBtn.addEventListener('click', function () {
+                const isHidden = section.classList.contains('hidden');
+                if (isHidden) {
+                    section.classList.remove('hidden');
+                    section.classList.add('animate-fadeIn');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+
+            // Seçimleri temizle
+            clearBtn.addEventListener('click', function () {
+                const items = grid.querySelectorAll('.option-btn.selected');
+                items.forEach(function (el) { el.classList.remove('selected'); });
+            });
+        });
+    </script>
+</head>
+<body class="flex items-center justify-center min-h-screen text-gray-800 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm mx-auto my-auto">
+        <!-- Uygulama Başlığı -->
+        <div class="flex flex-col items-center justify-center mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Bebek Ses Çözücü</h1>
+            <p class="text-gray-500">Hoş geldiniz!</p>
+        </div>
+
+        <!-- Ana Menü Butonları -->
+        <div class="space-y-6">
+            <!-- Ağlama Analizi Butonu -->
+            <button id="btnCryAnalysis" class="w-full flex items-center justify-center bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                </svg>
+                <span class="text-xl">Ağlama Analizi</span>
+            </button>
+
+            <!-- Sakinleştirme Rehberi Butonu -->
+            <button class="w-full flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+                    <path d="M12 6a2 2 0 1 0 2 2A2 2 0 0 0 12 6z"></path>
+                    <path d="M12 12a4 4 0 1 0 4 4A4 4 0 0 0 12 12z"></path>
+                </svg>
+                <span class="text-xl">Sakinleştirme Rehberi</span>
+            </button>
+
+            <!-- Günlük Takipçi Butonu -->
+            <button class="w-full flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-xl">Günlük Takipçi</span>
+            </button>
+        </div>
+
+        <!-- Ağlama Analizi Bölümü (Açılır/Kapanır) -->
+        <div id="cryAnalysisSection" class="hidden mt-6">
+            <div class="mb-3 flex items-center justify-between">
+                <h2 class="text-lg font-semibold text-gray-900">Ağlama Analizi Seçenekleri</h2>
+                <button id="clearSelections" type="button" class="text-sm text-sky-700 hover:text-sky-900 font-medium">Seçimleri Temizle</button>
+            </div>
+            <p class="text-sm text-gray-600 mb-4">Aşağıdaki seçeneklerden durumunuza uygun olanları işaretleyin.</p>
+            <div id="cryOptionsGrid" class="grid grid-cols-2 gap-3"></div>
+        </div>
+
+        <!-- Uygulama alt yazısı -->
+        <p class="mt-8 text-center text-xs text-gray-400">
+            © 2023 Bebek Ses Çözücü. Tüm hakları saklıdır.
+        </p>
+    </div>
+</body>
+</html>
+
