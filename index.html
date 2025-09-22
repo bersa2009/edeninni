@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebek Ses Çözücü</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to top, #cffafe, #dbeafe);
+        }
+        .hidden { display: none; }
+        .analysis-option {
+            transition: all 0.3s ease;
+        }
+        .analysis-option:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-gray-800 p-4">
+    <!-- Ana Menü -->
+    <div id="mainMenu" class="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm mx-auto my-auto">
+        <!-- Uygulama Başlığı -->
+        <div class="flex flex-col items-center justify-center mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Bebek Ses Çözücü</h1>
+            <p class="text-gray-500">Hoş geldiniz!</p>
+        </div>
+
+        <!-- Ana Menü Butonları -->
+        <div class="space-y-6">
+            <!-- Ağlama Analizi Butonu -->
+            <button onclick="showCryAnalysis()" class="w-full flex items-center justify-center bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                </svg>
+                <span class="text-xl">Ağlama Analizi</span>
+            </button>
+
+            <!-- Sakinleştirme Rehberi Butonu -->
+            <button onclick="showCalmingGuide()" class="w-full flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+                    <path d="M12 6a2 2 0 1 0 2 2A2 2 0 0 0 12 6z"></path>
+                    <path d="M12 12a4 4 0 1 0 4 4A4 4 0 0 0 12 12z"></path>
+                </svg>
+                <span class="text-xl">Sakinleştirme Rehberi</span>
+            </button>
+
+            <!-- Günlük Takipçi Butonu -->
+            <button onclick="showDailyTracker()" class="w-full flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-xl">Günlük Takipçi</span>
+            </button>
+        </div>
+
+        <!-- Uygulama alt yazısı -->
+        <p class="mt-8 text-center text-xs text-gray-400">
+            © 2023 Bebek Ses Çözücü. Tüm hakları saklıdır.
+        </p>
+    </div>
+
+    <!-- Ağlama Analizi Seçenekleri -->
+    <div id="cryAnalysisMenu" class="hidden bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm mx-auto my-auto">
+        <!-- Başlık ve Geri Butonu -->
+        <div class="flex items-center justify-between mb-8">
+            <button onclick="showMainMenu()" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <path d="m12 19-7-7 7-7"></path>
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-900">Ağlama Türü Seçin</h2>
+            <div class="w-10 h-10"></div> <!-- Spacer -->
+        </div>
+
+        <!-- Ağlama Türü Seçenekleri -->
+        <div class="space-y-4">
+            <!-- Açlık Ağlaması -->
+            <div onclick="analyzeCry('hunger')" class="analysis-option cursor-pointer bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20 12c0 4.4-3.6 8-8 8s-8-3.6-8-8 3.6-8 8-8 8 3.6 8 8z"></path>
+                            <path d="M12 8v8"></path>
+                            <path d="M8 12h8"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Açlık Ağlaması</h3>
+                        <p class="text-sm opacity-90">Düzenli, ritmik ağlama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Uyku İhtiyacı -->
+            <div onclick="analyzeCry('sleep')" class="analysis-option cursor-pointer bg-gradient-to-r from-indigo-400 to-indigo-500 hover:from-indigo-500 hover:to-indigo-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 3a6.364 6.364 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Uyku İhtiyacı</h3>
+                        <p class="text-sm opacity-90">Yorgun, kesintili ağlama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bezik Değişimi -->
+            <div onclick="analyzeCry('diaper')" class="analysis-option cursor-pointer bg-gradient-to-r from-green-400 to-green-500 hover:from-green-500 hover:to-green-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                            <path d="M8 12h8"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Bezik Değişimi</h3>
+                        <p class="text-sm opacity-90">Sürekli, rahatsız ağlama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gaz Ağrısı -->
+            <div onclick="analyzeCry('gas')" class="analysis-option cursor-pointer bg-gradient-to-r from-red-400 to-red-500 hover:from-red-500 hover:to-red-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Gaz Ağrısı</h3>
+                        <p class="text-sm opacity-90">Yüksek perdeli, acı ağlama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- İlgi İhtiyacı -->
+            <div onclick="analyzeCry('attention')" class="analysis-option cursor-pointer bg-gradient-to-r from-pink-400 to-pink-500 hover:from-pink-500 hover:to-pink-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">İlgi İhtiyacı</h3>
+                        <p class="text-sm opacity-90">Aralıklı, çağırıcı ağlama</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sıcaklık Rahatsızlığı -->
+            <div onclick="analyzeCry('temperature')" class="analysis-option cursor-pointer bg-gradient-to-r from-cyan-400 to-cyan-500 hover:from-cyan-500 hover:to-cyan-600 text-white p-4 rounded-2xl shadow-lg">
+                <div class="flex items-center">
+                    <div class="bg-white bg-opacity-20 p-3 rounded-xl mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="font-semibold text-lg">Sıcaklık Rahatsızlığı</h3>
+                        <p class="text-sm opacity-90">Değişken tonlu ağlama</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analiz Sonucu -->
+    <div id="analysisResult" class="hidden bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm mx-auto my-auto">
+        <!-- Başlık ve Geri Butonu -->
+        <div class="flex items-center justify-between mb-6">
+            <button onclick="showCryAnalysis()" class="p-2 rounded-full hover:bg-gray-100 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <path d="m12 19-7-7 7-7"></path>
+                </svg>
+            </button>
+            <h2 class="text-2xl font-bold text-gray-900">Analiz Sonucu</h2>
+            <div class="w-10 h-10"></div> <!-- Spacer -->
+        </div>
+
+        <!-- Sonuç İçeriği -->
+        <div id="resultContent" class="text-center">
+            <!-- Dinamik içerik buraya gelecek -->
+        </div>
+
+        <!-- Ana Menüye Dön Butonu -->
+        <button onclick="showMainMenu()" class="w-full mt-8 bg-sky-500 hover:bg-sky-600 text-white font-semibold py-3 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+            Ana Menüye Dön
+        </button>
+    </div>
+
+    <script>
+        // Menü geçişleri
+        function showMainMenu() {
+            document.getElementById('mainMenu').classList.remove('hidden');
+            document.getElementById('cryAnalysisMenu').classList.add('hidden');
+            document.getElementById('analysisResult').classList.add('hidden');
+        }
+
+        function showCryAnalysis() {
+            document.getElementById('mainMenu').classList.add('hidden');
+            document.getElementById('cryAnalysisMenu').classList.remove('hidden');
+            document.getElementById('analysisResult').classList.add('hidden');
+        }
+
+        function showCalmingGuide() {
+            alert('Sakinleştirme Rehberi özelliği yakında eklenecek!');
+        }
+
+        function showDailyTracker() {
+            alert('Günlük Takipçi özelliği yakında eklenecek!');
+        }
+
+        // Ağlama analizi
+        function analyzeCry(type) {
+            const analyses = {
+                hunger: {
+                    title: 'Açlık Ağlaması',
+                    color: 'from-orange-400 to-orange-500',
+                    icon: '🍼',
+                    description: 'Bebeğiniz muhtemelen acıkmış durumda.',
+                    suggestions: [
+                        'Bebeğinizi besleyin',
+                        'Emzirme pozisyonunu kontrol edin',
+                        'Beslenme saatlerini düzenleyin'
+                    ]
+                },
+                sleep: {
+                    title: 'Uyku İhtiyacı',
+                    color: 'from-indigo-400 to-indigo-500',
+                    icon: '😴',
+                    description: 'Bebeğiniz yorgun ve uyumak istiyor.',
+                    suggestions: [
+                        'Sakin bir ortam hazırlayın',
+                        'Bebeğinizi sarın',
+                        'Hafif sallamalar yapın'
+                    ]
+                },
+                diaper: {
+                    title: 'Bezik Değişimi',
+                    color: 'from-green-400 to-green-500',
+                    icon: '👶',
+                    description: 'Bebeğinizin bezi kirlenmiş olabilir.',
+                    suggestions: [
+                        'Bezi kontrol edin',
+                        'Temiz bez ile değiştirin',
+                        'Pişik kremi uygulayın'
+                    ]
+                },
+                gas: {
+                    title: 'Gaz Ağrısı',
+                    color: 'from-red-400 to-red-500',
+                    icon: '😣',
+                    description: 'Bebeğinizde gaz ağrısı olabilir.',
+                    suggestions: [
+                        'Bebeğinizi ayakta tutun',
+                        'Sırtını hafifçe ovun',
+                        'Bacak hareketleri yaptırın'
+                    ]
+                },
+                attention: {
+                    title: 'İlgi İhtiyacı',
+                    color: 'from-pink-400 to-pink-500',
+                    icon: '💕',
+                    description: 'Bebeğiniz ilgi ve sevgi arıyor.',
+                    suggestions: [
+                        'Bebeğinizle konuşun',
+                        'Kucağınıza alın',
+                        'Oyun oynayın'
+                    ]
+                },
+                temperature: {
+                    title: 'Sıcaklık Rahatsızlığı',
+                    color: 'from-cyan-400 to-cyan-500',
+                    icon: '🌡️',
+                    description: 'Bebeğiniz çok sıcak veya soğuk hissediyor.',
+                    suggestions: [
+                        'Oda sıcaklığını kontrol edin',
+                        'Kıyafetlerini ayarlayın',
+                        'Bebeğinizin ateşini ölçün'
+                    ]
+                }
+            };
+
+            const analysis = analyses[type];
+            const resultContent = document.getElementById('resultContent');
+            
+            resultContent.innerHTML = `
+                <div class="bg-gradient-to-r ${analysis.color} text-white p-6 rounded-2xl mb-6">
+                    <div class="text-6xl mb-4">${analysis.icon}</div>
+                    <h3 class="text-2xl font-bold mb-2">${analysis.title}</h3>
+                    <p class="text-lg opacity-90">${analysis.description}</p>
+                </div>
+                
+                <div class="text-left">
+                    <h4 class="text-lg font-semibold text-gray-800 mb-4">Öneriler:</h4>
+                    <ul class="space-y-3">
+                        ${analysis.suggestions.map(suggestion => `
+                            <li class="flex items-center bg-gray-50 p-3 rounded-xl">
+                                <div class="w-2 h-2 bg-sky-500 rounded-full mr-3 flex-shrink-0"></div>
+                                <span class="text-gray-700">${suggestion}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('cryAnalysisMenu').classList.add('hidden');
+            document.getElementById('analysisResult').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
