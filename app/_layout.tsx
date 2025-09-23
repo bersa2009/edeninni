@@ -1,10 +1,11 @@
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { theme } from '../lib/theme';
+import { ErrorBoundary } from '../components';
 
 export default function RootLayout() {
   return (
-    <>
+    <ErrorBoundary>
       <StatusBar style="dark" backgroundColor={theme.colors.background} />
       <Stack
         screenOptions={{
@@ -52,7 +53,14 @@ export default function RootLayout() {
             gestureEnabled: false,
           }} 
         />
+        <Stack.Screen 
+          name="recommendations/index" 
+          options={{ 
+            title: 'Öneriler',
+            presentation: 'card',
+          }} 
+        />
       </Stack>
-    </>
+    </ErrorBoundary>
   );
 }

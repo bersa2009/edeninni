@@ -56,6 +56,16 @@ npm start
 - Android için: `a` tuşuna basın
 - Web için: `w` tuşuna basın
 
+## 🔄 Uygulama Akışı
+
+Detaylı akış diyagramları için: [docs/FLOW_DIAGRAM.md](docs/FLOW_DIAGRAM.md)
+
+```
+Ana Menü → Kayıt Ekranı → Analiz Ekranı → Sonuç Ekranı → Öneriler Ekranı
+    ↑                                           ↓
+    ←←←←←←←←← Tekrar Analiz Et ←←←←←←←←←←←←←←←←←←←
+```
+
 ## 📁 Proje Yapısı
 
 ```
@@ -68,11 +78,17 @@ app/
     result.tsx             # Sonuç ekranı
 
 components/
-  MicButton.tsx            # Mikrofon butonu
-  ProgressRing.tsx         # Analiz progress göstergesi
-  ResultRow.tsx            # Sonuç satırı bileşeni
-  BannerInfo.tsx           # Bilgi banner'ı
-  Button.tsx               # Genel buton bileşeni
+  index.ts                 # Ana export dosyası
+  buttons/
+    Button.tsx             # Genel buton bileşeni
+    MicButton.tsx          # Mikrofon butonu
+  layout/
+    BannerInfo.tsx         # Bilgi banner'ı
+    ErrorBoundary.tsx      # Hata yakalama bileşeni
+  cards/
+    ResultRow.tsx          # Sonuç satırı bileşeni
+  ui/
+    ProgressRing.tsx       # Analiz progress göstergesi
 
 ai/
   AiService.ts             # AI analiz servisi (stub)
@@ -85,6 +101,8 @@ lib/
   theme.ts                 # Tema konfigürasyonu
   nav.ts                   # Navigasyon yardımcıları
   i18n.ts                  # Yerelleştirme
+  api.ts                   # Backend API servisi
+  storage.ts               # Local storage yönetimi
 
 i18n/
   tr.json                  # Türkçe çeviriler

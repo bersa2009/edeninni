@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { theme } from '../lib/theme';
-import { t } from '../lib/i18n';
+import { theme } from '../../lib/theme';
+import { t } from '../../lib/i18n';
 
 interface ResultRowProps {
   title: string;

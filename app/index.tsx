@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
-import { Button } from '../components/Button';
+import { Button } from '../components';
 import { theme } from '../lib/theme';
 import { t } from '../lib/i18n';
 

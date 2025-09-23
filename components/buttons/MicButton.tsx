@@ -1,7 +1,7 @@
 import React from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
-import { theme } from '../lib/theme';
-import { t } from '../lib/i18n';
+import { theme } from '../../lib/theme';
+import { t } from '../../lib/i18n';
 
 interface MicButtonProps {
   recording: boolean;

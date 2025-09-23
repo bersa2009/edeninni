@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MicButton } from '../../components/MicButton';
-import { BannerInfo } from '../../components/BannerInfo';
-import { Button } from '../../components/Button';
+import { MicButton, BannerInfo, Button } from '../../components';
 import { startRecording, stopRecording, isRecording } from '../../ai/audio';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';

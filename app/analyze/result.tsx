@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ResultRow } from '../../components/ResultRow';
-import { Button } from '../../components/Button';
+import { ResultRow, Button } from '../../components';
 import { AnalysisResult, CryClass } from '../../types';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
@@ -56,12 +55,11 @@ export default function ResultScreen() {
   };
 
   const handleViewRecommendations = () => {
-    // TODO: Navigate to recommendations screen or show modal
-    Alert.alert(
-      'Öneriler',
-      'Öneriler ekranı yakında eklenecek. Bu özellik bebeğinizin ihtiyacına göre özel öneriler sunacak.',
-      [{ text: 'Tamam' }]
-    );
+    // Navigate to recommendations screen with the top result
+    router.push({
+      pathname: '/recommendations',
+      params: { cryType: topResult.label }
+    });
   };
 
   const handleRepeatAnalysis = () => {

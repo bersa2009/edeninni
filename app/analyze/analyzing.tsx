@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, SafeAreaView } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ProgressRing } from '../../components/ProgressRing';
+import { ProgressRing } from '../../components';
 import { analyze } from '../../ai/AiService';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';

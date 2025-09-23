@@ -1,10 +1,31 @@
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
+import { Platform, PermissionsAndroid } from 'react-native';
 
 let recording: Audio.Recording | null = null;
 
 export async function requestPermissions(): Promise<boolean> {
   try {
+    // For Android, request runtime permission
+    if (Platform.OS === 'android') {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
+        {
+          title: 'Mikrofon İzni',
+          message: 'Bebek ağlama seslerini analiz etmek için mikrofon erişimi gerekli.',
+          buttonNeutral: 'Daha Sonra Sor',
+          buttonNegative: 'İptal',
+          buttonPositive: 'İzin Ver',
+        }
+      );
+      
+      if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('Android mikrofon izni reddedildi');
+        return false;
+      }
+    }
+
+    // For both platforms, use Expo Audio permissions
     const { status } = await Audio.requestPermissionsAsync();
     return status === 'granted';
   } catch (error) {
