@@ -1,0 +1,27 @@
+{
+  "menu.title": "Bebek Ses Çözücü",
+  "menu.startAnalysis": "Analize Başla",
+  
+  "analyze.title": "Ağlama Analizi",
+  "analyze.hint": "Bebeğiniz ağlarken ortamın sessiz olduğundan emin olun",
+  
+  "record.start": "Kaydı Başlat",
+  "record.stop": "Kaydı Durdur",
+  "record.backToMenu": "Menüye Dön",
+  
+  "processing": "Ses analiz ediliyor…",
+  
+  "result.title": "Sonuç",
+  "result.viewGuide": "Önerileri Gör",
+  "result.repeatAnalysis": "Tekrar Analiz Et",
+  
+  "cryTypes.hunger": "Açlık",
+  "cryTypes.gas": "Gaz",
+  "cryTypes.fatigue": "Yorgunluk",
+  
+  "accessibility.micButton": "Mikrofon butonu",
+  "accessibility.recordingActive": "Kayıt aktif",
+  "accessibility.recordingInactive": "Kayıt inaktif",
+  "accessibility.analysisProgress": "Analiz devam ediyor",
+  "accessibility.resultRow": "Analiz sonucu satırı"
+}
