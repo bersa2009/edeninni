@@ -1,6 +1,20 @@
 # Bebek Ses Çözücü 👶🎙️
 
+[![React Native](https://img.shields.io/badge/React%20Native-0.74.5-blue.svg)](https://reactnative.dev/)
+[![Expo SDK](https://img.shields.io/badge/Expo%20SDK-51.0-black.svg)](https://expo.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.3.3-blue.svg)](https://www.typescriptlang.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+
 Yapay zeka destekli bebek ağlama analizi uygulaması. Bu React Native (Expo) uygulaması, bebeğinizin ağlama seslerini analiz ederek ihtiyaçlarını belirlemenize yardımcı olur.
+
+## 📱 Demo
+
+<p align="center">
+  <img src="docs/screenshots/home.png" width="200" alt="Ana Menü" />
+  <img src="docs/screenshots/recording.png" width="200" alt="Kayıt Ekranı" />
+  <img src="docs/screenshots/analysis.png" width="200" alt="Analiz Ekranı" />
+  <img src="docs/screenshots/results.png" width="200" alt="Sonuçlar" />
+</p>
 
 ## 🚀 Özellikler
 
@@ -185,20 +199,70 @@ Mock analiz sonuçları:
 
 ## 🤝 Katkıda Bulunma
 
-1. Fork yapın
-2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request oluşturun
+Katkılarınızı memnuniyetle karşılıyoruz! Lütfen katkıda bulunmadan önce [CONTRIBUTING.md](CONTRIBUTING.md) dosyasını okuyun.
+
+### Geliştirme Süreci
+
+1. **Fork yapın**: Bu repository'yi fork edin
+2. **Branch oluşturun**: `git checkout -b feature/amazing-feature`
+3. **Değişiklikleri yapın**: Kodunuzu yazın ve test edin
+4. **Commit edin**: `git commit -m 'feat: Add amazing feature'`
+5. **Push edin**: `git push origin feature/amazing-feature`
+6. **Pull Request oluşturun**: GitHub'da PR açın
+
+### Commit Mesaj Formatı
+
+Bu proje [Conventional Commits](https://www.conventionalcommits.org/) standardını kullanır:
+
+- `feat:` Yeni özellik
+- `fix:` Bug düzeltme
+- `docs:` Dokümantasyon değişikliği
+- `style:` Kod formatı (işlevselliği etkilemeyen)
+- `refactor:` Kod refactoring
+- `test:` Test ekleme/düzeltme
+- `chore:` Build süreci veya yardımcı araç değişiklikleri
+
+## 🐛 Bug Raporları
+
+Bug bulduğunuzda lütfen [GitHub Issues](https://github.com/username/bebek-ses-cozucu/issues) kullanarak rapor edin:
+
+1. Bug'ın detaylı açıklaması
+2. Tekrar etme adımları
+3. Beklenen davranış vs gerçek davranış
+4. Screenshots (varsa)
+5. Cihaz bilgileri (iOS/Android version, device model)
 
 ## 📄 Lisans
 
-Bu proje MIT lisansı altında lisanslanmıştır.
+Bu proje [MIT Lisansı](LICENSE) altında lisanslanmıştır. Detaylar için LICENSE dosyasına bakın.
 
-## 📞 Destek
+## 👥 Katkıda Bulunanlar
 
-Sorularınız için GitHub Issues kullanabilirsiniz.
+- [@username](https://github.com/username) - Proje sahibi ve ana geliştirici
+
+## 📞 İletişim
+
+- **GitHub Issues**: [Issues sayfası](https://github.com/username/bebek-ses-cozucu/issues)
+- **Email**: your.email@example.com
+- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+
+## 🙏 Teşekkürler
+
+- [Expo Team](https://expo.dev/) - Harika geliştirme platformu için
+- [React Native Community](https://reactnative.dev/) - Güçlü framework için
+- Tüm beta testerlar ve katkıda bulunanlara
 
 ---
 
-**Not**: Bu uygulama eğitim amaçlıdır ve gerçek tıbbi tavsiye sağlamaz. Bebeğinizin sağlığı konusunda her zaman bir sağlık uzmanına danışın.
+## ⚠️ Önemli Not
+
+**Bu uygulama eğitim ve araştırma amaçlıdır. Gerçek tıbbi tavsiye sağlamaz. Bebeğinizin sağlığı ve ihtiyaçları konusunda her zaman qualified bir sağlık uzmanına danışın.**
+
+## 🏷️ Versiyonlar
+
+- **v1.0.0** - İlk stabil sürüm
+  - 3 ekranlı analiz akışı
+  - Türkçe yerelleştirme
+  - Mock AI analiz sistemi
+  - Error handling ve logging
+  - Performance optimizasyonları
