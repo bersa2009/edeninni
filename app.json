@@ -35,6 +35,10 @@
     "scheme": "bebek-ses-cozucu",
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "jsEngine": "hermes",
+    "experiments": {
+      "turboModules": true
+    }
   }
 }

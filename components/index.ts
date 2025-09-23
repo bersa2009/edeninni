@@ -1,5 +1,6 @@
 // Main components export file
 // This allows clean imports like: import { Button, MicButton } from '../components'
+// All components are optimized with React.memo for better performance
 
 // Buttons
 export { Button } from './buttons/Button';

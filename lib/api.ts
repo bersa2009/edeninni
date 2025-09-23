@@ -5,11 +5,33 @@
  * Currently configured for future backend integration
  */
 
+import { logError, logWarn, logInfo } from './logger';
+
 export interface ApiResponse<T> {
   success: boolean;
   data?: T;
   error?: string;
   message?: string;
+}
+
+export interface ApiRequestBody {
+  [key: string]: unknown;
+}
+
+export interface AnalysisRequestBody extends ApiRequestBody {
+  audioFile: File | Blob;
+  fileName: string;
+  metadata?: {
+    duration?: number;
+    sampleRate?: number;
+    channels?: number;
+  };
+}
+
+export interface FeedbackRequestBody extends ApiRequestBody {
+  rating: 'correct' | 'incorrect';
+  comment?: string;
+  timestamp: string;
 }
 
 export interface ApiConfig {
@@ -63,11 +85,12 @@ class ApiService {
         data,
       };
     } catch (error) {
-      console.error('API Request failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      logError(`API request failed: ${endpoint}`, 'ApiService', error);
       
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error',
+        error: errorMessage,
       };
     }
   }
@@ -76,14 +99,14 @@ class ApiService {
     return this.request<T>(endpoint, { method: 'GET' });
   }
 
-  async post<T>(endpoint: string, body?: any): Promise<ApiResponse<T>> {
+  async post<T>(endpoint: string, body?: ApiRequestBody): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: body ? JSON.stringify(body) : undefined,
     });
   }
 
-  async put<T>(endpoint: string, body?: any): Promise<ApiResponse<T>> {
+  async put<T>(endpoint: string, body?: ApiRequestBody): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'PUT',
       body: body ? JSON.stringify(body) : undefined,
@@ -127,11 +150,12 @@ class ApiService {
         data,
       };
     } catch (error) {
-      console.error('File upload failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Upload failed';
+      logError(`File upload failed: ${endpoint}`, 'ApiService', error);
       
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Upload failed',
+        error: errorMessage,
       };
     }
   }
@@ -161,7 +185,7 @@ export const babyAnalyzerApi = {
   },
 
   // Save analysis result
-  saveAnalysis: async (result: any) => {
+  saveAnalysis: async (result: import('../types').AnalysisResult) => {
     return api.post('/analysis', result);
   },
 
@@ -171,7 +195,7 @@ export const babyAnalyzerApi = {
   },
 
   // Submit user feedback
-  submitFeedback: async (analysisId: string, feedback: any) => {
+  submitFeedback: async (analysisId: string, feedback: FeedbackRequestBody) => {
     return api.post(`/feedback/${analysisId}`, feedback);
   },
 
@@ -182,9 +206,9 @@ export const babyAnalyzerApi = {
 };
 
 // Error handling utilities
-export const handleApiError = (error: ApiResponse<any>) => {
+export const handleApiError = (error: ApiResponse<unknown>) => {
   if (error.error) {
-    console.error('API Error:', error.error);
+    logError('API Error encountered', 'ApiService', { error: error.error });
     // You can add toast notifications, error logging, etc. here
     return error.error;
   }

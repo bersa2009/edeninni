@@ -1,4 +1,5 @@
 import { AnalysisResult } from '../types';
+import { logInfo, logError, devLog } from '../lib/logger';
 
 /**
  * AI Service for baby cry analysis
@@ -13,7 +14,7 @@ import { AnalysisResult } from '../types';
 
 export async function analyze(filePath: string): Promise<AnalysisResult> {
   // TODO: Replace with real TFLite/PyTorch Mobile implementation
-  console.log('Analyzing audio file:', filePath);
+  logInfo('Starting audio analysis', 'AiService', { filePath });
   
   // Simulate processing time
   await new Promise(resolve => setTimeout(resolve, 2000 + Math.random() * 1000));
@@ -52,7 +53,12 @@ export async function analyze(filePath: string): Promise<AnalysisResult> {
     items: normalizedResults,
   };
   
-  console.log('Analysis complete:', result);
+  logInfo('Audio analysis completed', 'AiService', { 
+    duration: '2-3 seconds',
+    resultCount: result.items.length 
+  });
+  devLog('Analysis result details', result);
+  
   return result;
 }
 

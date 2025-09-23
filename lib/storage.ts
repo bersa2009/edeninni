@@ -6,6 +6,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AnalysisResult } from '../types';
+import { logError, logWarn, logInfo, devLog } from './logger';
 
 // Storage keys
 const STORAGE_KEYS = {
@@ -51,7 +52,7 @@ class StorageService {
       await AsyncStorage.setItem(key, jsonValue);
       return true;
     } catch (error) {
-      console.error(`Error saving ${key}:`, error);
+      logError(`Failed to save data to storage`, 'StorageService', { key, error });
       return false;
     }
   }
@@ -64,7 +65,7 @@ class StorageService {
       }
       return JSON.parse(jsonValue) as T;
     } catch (error) {
-      console.error(`Error reading ${key}:`, error);
+      logError(`Failed to read data from storage`, 'StorageService', { key, error });
       return defaultValue || null;
     }
   }
@@ -74,7 +75,7 @@ class StorageService {
       await AsyncStorage.removeItem(key);
       return true;
     } catch (error) {
-      console.error(`Error removing ${key}:`, error);
+      logError(`Failed to remove data from storage`, 'StorageService', { key, error });
       return false;
     }
   }
@@ -84,7 +85,7 @@ class StorageService {
       await AsyncStorage.clear();
       return true;
     } catch (error) {
-      console.error('Error clearing storage:', error);
+      logError('Failed to clear storage', 'StorageService', error);
       return false;
     }
   }
@@ -118,9 +119,13 @@ class StorageService {
         history.splice(maxItems);
       }
 
+      logInfo('Analysis result saved to history', 'StorageService', { 
+        analysisId: newItem.id,
+        totalHistoryItems: history.length 
+      });
       return await this.setItem(STORAGE_KEYS.ANALYSIS_HISTORY, history);
     } catch (error) {
-      console.error('Error saving analysis result:', error);
+      logError('Failed to save analysis result', 'StorageService', error);
       return false;
     }
   }
@@ -137,7 +142,7 @@ class StorageService {
       
       return false;
     } catch (error) {
-      console.error('Error updating feedback:', error);
+      logError('Failed to update analysis feedback', 'StorageService', { analysisId, error });
       return false;
     }
   }
@@ -170,7 +175,7 @@ class StorageService {
       const updatedPreferences = { ...currentPreferences, ...preferences };
       return await this.setItem(STORAGE_KEYS.USER_PREFERENCES, updatedPreferences);
     } catch (error) {
-      console.error('Error updating preferences:', error);
+      logError('Failed to update user preferences', 'StorageService', error);
       return false;
     }
   }
@@ -198,7 +203,7 @@ class StorageService {
       const updatedSettings = { ...currentSettings, ...settings };
       return await this.setItem(STORAGE_KEYS.APP_SETTINGS, updatedSettings);
     } catch (error) {
-      console.error('Error updating settings:', error);
+      logError('Failed to update app settings', 'StorageService', error);
       return false;
     }
   }
@@ -258,7 +263,7 @@ class StorageService {
         estimatedSize: `${(totalSize / 1024).toFixed(2)} KB`,
       };
     } catch (error) {
-      console.error('Error getting storage info:', error);
+      logError('Failed to get storage info', 'StorageService', error);
       return {
         totalItems: 0,
         historyItems: 0,
@@ -281,9 +286,10 @@ class StorageService {
       // Remove old audio files if they exist
       // This would need to be implemented based on your file storage strategy
 
+      logInfo('Storage cleanup completed', 'StorageService');
       return true;
     } catch (error) {
-      console.error('Error cleaning up old data:', error);
+      logError('Failed to cleanup old data', 'StorageService', error);
       return false;
     }
   }

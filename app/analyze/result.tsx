@@ -5,6 +5,7 @@ import { ResultRow, Button } from '../../components';
 import { AnalysisResult, CryClass } from '../../types';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
+import { logError } from '../../lib/logger';
 
 export default function ResultScreen() {
   const { result } = useLocalSearchParams<{ result: string }>();
@@ -15,7 +16,7 @@ export default function ResultScreen() {
   try {
     analysisData = JSON.parse(result || '{}');
   } catch (error) {
-    console.error('Failed to parse result:', error);
+    logError('Failed to parse analysis result', 'ResultScreen', error);
     // Fallback data
     analysisData = {
       ts: new Date().toISOString(),

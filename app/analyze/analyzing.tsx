@@ -5,6 +5,7 @@ import { ProgressRing } from '../../components';
 import { analyze } from '../../ai/AiService';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
+import { logError } from '../../lib/logger';
 
 export default function Analyzing() {
   const { path } = useLocalSearchParams<{ path: string }>();
@@ -14,17 +15,13 @@ export default function Analyzing() {
     const performAnalysis = async () => {
       try {
         if (!path) {
-          console.error('No audio path provided');
+          logError('No audio path provided for analysis', 'AnalyzingScreen');
           router.replace('/analyze');
           return;
         }
-
-        console.log('Starting analysis for path:', path);
         
         // Perform the AI analysis
         const result = await analyze(path);
-        
-        console.log('Analysis completed:', result);
         
         // Navigate to results screen
         router.replace({
@@ -33,7 +30,7 @@ export default function Analyzing() {
         });
         
       } catch (error) {
-        console.error('Analysis failed:', error);
+        logError('Audio analysis failed', 'AnalyzingScreen', error);
         
         // On error, go back to recording screen
         router.replace('/analyze');

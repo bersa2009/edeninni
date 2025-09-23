@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Pressable, Text, View, StyleSheet } from 'react-native';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
@@ -9,7 +9,7 @@ interface MicButtonProps {
   disabled?: boolean;
 }
 
-export function MicButton({ recording, onPress, disabled = false }: MicButtonProps) {
+const MicButton = memo<MicButtonProps>(({ recording, onPress, disabled = false }) => {
   return (
     <Pressable
       onPress={onPress}
@@ -30,7 +30,11 @@ export function MicButton({ recording, onPress, disabled = false }: MicButtonPro
       </Text>
     </Pressable>
   );
-}
+});
+
+MicButton.displayName = 'MicButton';
+
+export { MicButton };
 
 const styles = StyleSheet.create({
   container: {

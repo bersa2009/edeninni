@@ -5,6 +5,7 @@ import { MicButton, BannerInfo, Button } from '../../components';
 import { startRecording, stopRecording, isRecording } from '../../ai/audio';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
+import { logError } from '../../lib/logger';
 
 export default function AnalyzeStart() {
   const [recording, setRecording] = useState(false);
@@ -48,7 +49,7 @@ export default function AnalyzeStart() {
       setIsProcessing(false);
       setRecording(false);
       
-      console.error('Recording error:', error);
+      logError('Audio recording failed', 'AnalyzeScreen', error);
       Alert.alert(
         'Hata',
         'Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.',
@@ -72,7 +73,7 @@ export default function AnalyzeStart() {
                 setRecording(false);
                 router.back();
               } catch (error) {
-                console.error('Error stopping recording:', error);
+                logError('Error stopping recording during navigation', 'AnalyzeScreen', error);
                 router.back();
               }
             }

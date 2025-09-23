@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { theme } from '../../lib/theme';
 import { t } from '../../lib/i18n';
@@ -9,7 +9,7 @@ interface ResultRowProps {
   backgroundColor: string;
 }
 
-export function ResultRow({ title, percent, backgroundColor }: ResultRowProps) {
+const ResultRow = memo<ResultRowProps>(({ title, percent, backgroundColor }) => {
   return (
     <View 
       style={[styles.container, { backgroundColor }]}
@@ -20,7 +20,11 @@ export function ResultRow({ title, percent, backgroundColor }: ResultRowProps) {
       <Text style={styles.percent}>{percent}%</Text>
     </View>
   );
-}
+});
+
+ResultRow.displayName = 'ResultRow';
+
+export { ResultRow };
 
 const styles = StyleSheet.create({
   container: {

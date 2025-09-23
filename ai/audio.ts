@@ -1,6 +1,7 @@
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import { Platform, PermissionsAndroid } from 'react-native';
+import { logInfo, logError, logWarn } from '../lib/logger';
 
 let recording: Audio.Recording | null = null;
 
@@ -20,7 +21,7 @@ export async function requestPermissions(): Promise<boolean> {
       );
       
       if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('Android mikrofon izni reddedildi');
+        logWarn('Android microphone permission denied', 'AudioService');
         return false;
       }
     }
@@ -29,7 +30,7 @@ export async function requestPermissions(): Promise<boolean> {
     const { status } = await Audio.requestPermissionsAsync();
     return status === 'granted';
   } catch (error) {
-    console.error('Error requesting audio permissions:', error);
+    logError('Failed to request audio permissions', 'AudioService', error);
     return false;
   }
 }
@@ -54,9 +55,9 @@ export async function startRecording(): Promise<void> {
     );
     
     recording = newRecording;
-    console.log('Recording started');
+    logInfo('Audio recording started successfully', 'AudioService');
   } catch (error) {
-    console.error('Failed to start recording:', error);
+    logError('Failed to start audio recording', 'AudioService', error);
     throw error;
   }
 }
@@ -85,12 +86,15 @@ export async function stopRecording(): Promise<string> {
       to: destinationUri,
     });
 
-    console.log('Recording saved to:', destinationUri);
+    logInfo('Audio recording saved successfully', 'AudioService', { 
+      fileName,
+      path: destinationUri 
+    });
     recording = null;
 
     return destinationUri;
   } catch (error) {
-    console.error('Failed to stop recording:', error);
+    logError('Failed to stop audio recording', 'AudioService', error);
     recording = null;
     throw error;
   }
