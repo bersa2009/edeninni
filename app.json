@@ -32,6 +32,9 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "bebek-ses-cozucu"
+    "scheme": "bebek-ses-cozucu",
+    "plugins": [
+      "expo-font"
+    ]
   }
 }
