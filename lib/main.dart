@@ -17,7 +17,9 @@ void main() async {
   // Hive veritabanını başlat
   await Hive.initFlutter();
   Hive.registerAdapter(CryAnalysisAdapter());
+  Hive.registerAdapter(CryTypeAdapter());
   Hive.registerAdapter(UserFeedbackAdapter());
+  Hive.registerAdapter(FeedbackDataAdapter());
   
   // İzinleri kontrol et ve iste
   await _requestPermissions();
