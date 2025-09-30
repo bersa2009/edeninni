@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebek Ses Çözücü</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(to top, #cffafe, #dbeafe);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen text-gray-800 p-4">
+    <div class="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 w-full max-w-sm mx-auto my-auto">
+        <!-- Uygulama Başlığı -->
+        <div class="flex flex-col items-center justify-center mb-8 text-center">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Bebek Ses Çözücü</h1>
+            <p class="text-gray-500">Hoş geldiniz!</p>
+        </div>
+
+        <!-- Ana Menü Butonları -->
+        <div id="menu" class="space-y-6">
+            <!-- Ağlama Analizi Butonu -->
+            <button id="btn-analysis" class="w-full flex items-center justify-center bg-sky-500 hover:bg-sky-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                    <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                    <line x1="12" y1="19" x2="12" y2="22"></line>
+                </svg>
+                <span class="text-xl">Ağlama Analizi</span>
+            </button>
+
+            <!-- Sakinleştirme Rehberi Butonu -->
+            <button class="w-full flex items-center justify-center bg-pink-500 hover:bg-pink-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"></path>
+                    <path d="M12 6a2 2 0 1 0 2 2A2 2 0 0 0 12 6z"></path>
+                    <path d="M12 12a4 4 0 1 0 4 4A4 4 0 0 0 12 12z"></path>
+                </svg>
+                <span class="text-xl">Sakinleştirme Rehberi</span>
+            </button>
+
+            <!-- Günlük Takipçi Butonu -->
+            <button class="w-full flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white font-semibold py-4 px-6 rounded-2xl shadow-lg transition-all transform hover:scale-105 duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 mr-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+                <span class="text-xl">Günlük Takipçi</span>
+            </button>
+        </div>
+
+        <!-- Ağlama Analizi Bölümü -->
+        <div id="analysis" class="hidden">
+            <button id="btn-back" class="mb-6 text-sm text-sky-600 hover:text-sky-700 font-medium">← Geri</button>
+            <h2 class="text-2xl font-semibold text-gray-900 mb-4">Ağlama Analizi</h2>
+            <p class="text-gray-500 mb-4">Aşağıdaki seçeneklerden durumu seçin:</p>
+
+            <!-- Seçenekler -->
+            <div class="grid grid-cols-1 gap-4">
+                <label class="flex items-center p-4 border rounded-2xl cursor-pointer hover:bg-sky-50">
+                    <input type="radio" name="cry" value="aclik" class="mr-3">
+                    <span class="font-medium">Açlık</span>
+                </label>
+                <label class="flex items-center p-4 border rounded-2xl cursor-pointer hover:bg-sky-50">
+                    <input type="radio" name="cry" value="gaz" class="mr-3">
+                    <span class="font-medium">Gaz</span>
+                </label>
+                <label class="flex items-center p-4 border rounded-2xl cursor-pointer hover:bg-sky-50">
+                    <input type="radio" name="cry" value="uyku" class="mr-3">
+                    <span class="font-medium">Uyku</span>
+                </label>
+                <label class="flex items-center p-4 border rounded-2xl cursor-pointer hover:bg-sky-50">
+                    <input type="radio" name="cry" value="rahatsizlik" class="mr-3">
+                    <span class="font-medium">Rahatsızlık</span>
+                </label>
+                <label class="flex items-center p-4 border rounded-2xl cursor-pointer hover:bg-sky-50">
+                    <input type="radio" name="cry" value="dikkat" class="mr-3">
+                    <span class="font-medium">İlgi/Sevgi</span>
+                </label>
+            </div>
+
+            <button id="btn-analyze" class="mt-6 w-full bg-sky-600 hover:bg-sky-700 text-white font-semibold py-3 rounded-xl transition-colors">Analiz Et</button>
+
+            <!-- Sonuç -->
+            <div id="result" class="mt-6 hidden p-4 bg-sky-50 rounded-2xl border border-sky-100">
+                <p id="resultTitle" class="font-semibold text-sky-800 mb-1"></p>
+                <p id="resultDesc" class="text-sky-700 text-sm"></p>
+            </div>
+        </div>
+
+        <!-- Uygulama alt yazısı -->
+        <p class="mt-8 text-center text-xs text-gray-400">
+            © 2025 Bebek Ses Çözücü. Tüm hakları saklıdır.
+        </p>
+    </div>
+
+    <script>
+        const menu = document.getElementById('menu');
+        const analysis = document.getElementById('analysis');
+        const btnAnalysis = document.getElementById('btn-analysis');
+        const btnBack = document.getElementById('btn-back');
+        const btnAnalyze = document.getElementById('btn-analyze');
+
+        const result = document.getElementById('result');
+        const resultTitle = document.getElementById('resultTitle');
+        const resultDesc = document.getElementById('resultDesc');
+
+        const messages = {
+            aclik: {
+                title: 'Açlık',
+                desc: 'Emzirme veya biberon deneyin. Son beslenmeden bu yana geçen süreyi kontrol edin.'
+            },
+            gaz: {
+                title: 'Gaz',
+                desc: 'Dik pozisyonda gaz çıkarma, karın masajı ve sıcak bez uygulaması yardımcı olabilir.'
+            },
+            uyku: {
+                title: 'Uyku',
+                desc: 'Ortamdaki ışığı azaltın, beyaz gürültü açın ve sarılama/yele sarma deneyin.'
+            },
+            rahatsizlik: {
+                title: 'Rahatsızlık',
+                desc: 'Altını, kıyafet etiketlerini ve ısıyı kontrol edin. Döküntü veya ateş varsa doktora danışın.'
+            },
+            dikkat: {
+                title: 'İlgi/Sevgi',
+                desc: 'Ten tene temas, nazik sallama ve konuşma çoğu zaman sakinleştirir.'
+            }
+        };
+
+        btnAnalysis.addEventListener('click', () => {
+            menu.classList.add('hidden');
+            analysis.classList.remove('hidden');
+        });
+
+        btnBack.addEventListener('click', () => {
+            analysis.classList.add('hidden');
+            menu.classList.remove('hidden');
+            result.classList.add('hidden');
+        });
+
+        btnAnalyze.addEventListener('click', () => {
+            const selected = document.querySelector('input[name="cry"]:checked');
+            if (!selected) {
+                resultTitle.textContent = 'Seçim yapmadınız';
+                resultDesc.textContent = 'Lütfen bir seçenek seçin.';
+                result.classList.remove('hidden');
+                return;
+            }
+            const key = selected.value;
+            const { title, desc } = messages[key];
+            resultTitle.textContent = `Tahmin: ${title}`;
+            resultDesc.textContent = desc;
+            result.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
+
