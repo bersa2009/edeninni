@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bebek Sağlık Programı</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Medical Disclaimer -->
+    <div class="medical-disclaimer">
+        <i class="fas fa-exclamation-triangle"></i>
+        Teşhis değil, doktora danışın
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-baby rotating-icon"></i>
+            <p>Yükleniyor...</p>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="screen active" id="welcomeScreen">
+            <div class="header">
+                <h1><i class="fas fa-baby"></i> Bebek Sağlık Programı</h1>
+                <p>Bebeğinizin sağlığını takip etmek için tasarlandı</p>
+            </div>
+
+            <div class="menu-grid">
+                <button class="menu-btn slide-btn" onclick="showScreen('growthScreen')">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Büyüme Takibi</span>
+                </button>
+                
+                <button class="menu-btn slide-btn" onclick="showScreen('vaccineScreen')">
+                    <i class="fas fa-syringe"></i>
+                    <span>Aşı Takvimi</span>
+                </button>
+                
+                <button class="menu-btn slide-btn" onclick="showScreen('feedingScreen')">
+                    <i class="fas fa-baby-carriage"></i>
+                    <span>Beslenme Takibi</span>
+                </button>
+                
+                <button class="menu-btn slide-btn" onclick="showScreen('sleepScreen')">
+                    <i class="fas fa-moon"></i>
+                    <span>Uyku Takibi</span>
+                </button>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <p>Bu işe yaradı mı?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" onclick="submitFeedback('welcome', 'positive')">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="feedback-btn negative" onclick="submitFeedback('welcome', 'negative')">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Growth Tracking Screen -->
+        <div class="screen" id="growthScreen">
+            <div class="header">
+                <button class="back-btn slide-btn" onclick="showScreen('welcomeScreen')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Büyüme Takibi</h2>
+            </div>
+
+            <div class="growth-form">
+                <div class="input-group">
+                    <label>Yaş (ay)</label>
+                    <input type="number" id="babyAge" placeholder="Bebeğin yaşı (ay)">
+                </div>
+                
+                <div class="input-group">
+                    <label>Kilo (kg)</label>
+                    <input type="number" id="babyWeight" step="0.1" placeholder="Kilo">
+                </div>
+                
+                <div class="input-group">
+                    <label>Boy (cm)</label>
+                    <input type="number" id="babyHeight" placeholder="Boy">
+                </div>
+                
+                <button class="action-btn slide-btn" onclick="calculateGrowth()">
+                    <i class="fas fa-calculator"></i>
+                    Büyüme Analizi Yap
+                </button>
+            </div>
+
+            <div class="results" id="growthResults"></div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <p>Bu işe yaradı mı?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" onclick="submitFeedback('growth', 'positive')">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="feedback-btn negative" onclick="submitFeedback('growth', 'negative')">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vaccine Schedule Screen -->
+        <div class="screen" id="vaccineScreen">
+            <div class="header">
+                <button class="back-btn slide-btn" onclick="showScreen('welcomeScreen')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Aşı Takvimi</h2>
+            </div>
+
+            <div class="vaccine-timeline">
+                <div class="vaccine-item">
+                    <div class="vaccine-age">0-2 ay</div>
+                    <div class="vaccine-details">
+                        <h4>Hepatit B, BCG</h4>
+                        <p>Doğumda ve 2. ayda yapılır</p>
+                    </div>
+                </div>
+                
+                <div class="vaccine-item">
+                    <div class="vaccine-age">2 ay</div>
+                    <div class="vaccine-details">
+                        <h4>5'li Karma Aşı, Pnömokok</h4>
+                        <p>İlk doz uygulanır</p>
+                    </div>
+                </div>
+                
+                <div class="vaccine-item">
+                    <div class="vaccine-age">4 ay</div>
+                    <div class="vaccine-details">
+                        <h4>5'li Karma Aşı, Pnömokok</h4>
+                        <p>İkinci doz uygulanır</p>
+                    </div>
+                </div>
+                
+                <div class="vaccine-item">
+                    <div class="vaccine-age">6 ay</div>
+                    <div class="vaccine-details">
+                        <h4>5'li Karma Aşı, Pnömokok</h4>
+                        <p>Üçüncü doz uygulanır</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <p>Bu işe yaradı mı?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" onclick="submitFeedback('vaccine', 'positive')">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="feedback-btn negative" onclick="submitFeedback('vaccine', 'negative')">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feeding Tracking Screen -->
+        <div class="screen" id="feedingScreen">
+            <div class="header">
+                <button class="back-btn slide-btn" onclick="showScreen('welcomeScreen')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Beslenme Takibi</h2>
+            </div>
+
+            <div class="feeding-tracker">
+                <div class="feeding-options">
+                    <button class="feeding-btn slide-btn" onclick="recordFeeding('breast')">
+                        <i class="fas fa-heart"></i>
+                        Anne Sütü
+                    </button>
+                    
+                    <button class="feeding-btn slide-btn" onclick="recordFeeding('bottle')">
+                        <i class="fas fa-baby-carriage"></i>
+                        Mama
+                    </button>
+                    
+                    <button class="feeding-btn slide-btn" onclick="recordFeeding('solid')">
+                        <i class="fas fa-utensils"></i>
+                        Katı Gıda
+                    </button>
+                </div>
+
+                <div class="feeding-log" id="feedingLog">
+                    <h3>Bugünkü Beslenme</h3>
+                    <div class="log-entries" id="logEntries">
+                        <!-- Feeding entries will be added here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <p>Bu işe yaradı mı?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" onclick="submitFeedback('feeding', 'positive')">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="feedback-btn negative" onclick="submitFeedback('feeding', 'negative')">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sleep Tracking Screen -->
+        <div class="screen" id="sleepScreen">
+            <div class="header">
+                <button class="back-btn slide-btn" onclick="showScreen('welcomeScreen')">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <h2>Uyku Takibi</h2>
+            </div>
+
+            <div class="sleep-tracker">
+                <div class="sleep-controls">
+                    <button class="sleep-btn slide-btn" id="sleepToggle" onclick="toggleSleep()">
+                        <i class="fas fa-moon"></i>
+                        Uyku Başlat
+                    </button>
+                </div>
+
+                <div class="sleep-stats">
+                    <div class="stat-card">
+                        <h4>Bugünkü Uyku</h4>
+                        <p id="todaySleep">0 saat 0 dakika</p>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h4>Son Uyku</h4>
+                        <p id="lastSleep">-</p>
+                    </div>
+                </div>
+
+                <div class="sleep-log" id="sleepLog">
+                    <!-- Sleep entries will be added here -->
+                </div>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="feedback-section">
+                <p>Bu işe yaradı mı?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" onclick="submitFeedback('sleep', 'positive')">
+                        <i class="fas fa-thumbs-up"></i> Evet
+                    </button>
+                    <button class="feedback-btn negative" onclick="submitFeedback('sleep', 'negative')">
+                        <i class="fas fa-thumbs-down"></i> Hayır
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feedback Toast -->
+    <div class="feedback-toast" id="feedbackToast">
+        <i class="fas fa-check"></i>
+        <span>Geri bildiriminiz kaydedildi!</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
