@@ -1,0 +1,162 @@
+/* AI-UX Widgets (framework-agnostic)
+   - Feedback button: bottom-right
+   - Advisory note: bottom-left
+   - Button animations: subtle slide effect
+   - Loading spinner: utility class and portal position
+*/
+
+:root {
+  --aiux-z-index: 2147483000;
+  --aiux-spacing: 16px;
+  --aiux-radius: 10px;
+
+  --aiux-feedback-bg: #111827; /* gray-900 */
+  --aiux-feedback-text: #f9fafb; /* gray-50 */
+  --aiux-feedback-muted: #9ca3af; /* gray-400 */
+  --aiux-accent: #2563eb; /* blue-600 */
+  --aiux-accent-600: #2563eb;
+  --aiux-accent-700: #1d4ed8;
+  --aiux-note-text: #9ca3af; /* gray-400 */
+}
+
+/* Button subtle slide animation (opt-in via html.aiux-animate-buttons) */
+html.aiux-animate-buttons :is(button, [role="button"], .btn, .button) {
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease, color 160ms ease;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+html.aiux-animate-buttons :is(button, [role="button"], .btn, .button):hover {
+  transform: translateY(-1px);
+}
+
+html.aiux-animate-buttons :is(button, [role="button"], .btn, .button):active {
+  transform: translateY(0px);
+}
+
+/* Feedback widget */
+.aiux-feedback {
+  position: fixed;
+  right: var(--aiux-spacing);
+  bottom: var(--aiux-spacing);
+  z-index: var(--aiux-z-index);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.aiux-feedback-main {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: var(--aiux-radius);
+  background: var(--aiux-feedback-bg);
+  color: var(--aiux-feedback-text);
+  font-size: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.aiux-feedback-options {
+  display: none;
+  background: rgba(17,24,39,0.9);
+  color: var(--aiux-feedback-text);
+  padding: 6px;
+  border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.aiux-feedback-options[aria-expanded="true"] {
+  display: inline-flex;
+  gap: 6px;
+}
+
+.aiux-chip {
+  appearance: none;
+  -webkit-appearance: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: var(--aiux-feedback-text);
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.aiux-chip[data-yes] {
+  border-color: var(--aiux-accent-600);
+}
+
+.aiux-chip[data-yes]:hover {
+  background: var(--aiux-accent-600);
+}
+
+.aiux-chip[data-no]:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+/* Advisory note */
+.aiux-advisory {
+  position: fixed;
+  left: var(--aiux-spacing);
+  bottom: var(--aiux-spacing);
+  z-index: var(--aiux-z-index);
+  color: var(--aiux-note-text);
+  font-size: 12px;
+  line-height: 1.2;
+  opacity: 0.85;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Loading spinner */
+.aiux-spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  border: 2px solid rgba(107,114,128,0.35); /* gray-500 */
+  border-top-color: var(--aiux-accent);
+  animation: aiux-spin 800ms linear infinite;
+}
+
+@keyframes aiux-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.aiux-spinner-portal {
+  position: fixed;
+  top: var(--aiux-spacing);
+  right: var(--aiux-spacing);
+  z-index: var(--aiux-z-index);
+  display: none;
+}
+
+.aiux-spinner-portal[aria-hidden="false"] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(17,24,39,0.85);
+  color: var(--aiux-feedback-text);
+  border-radius: 999px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.aiux-spinner-label {
+  font-size: 12px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  html.aiux-animate-buttons :is(button, [role="button"], .btn, .button) {
+    transition: none;
+  }
+  .aiux-spinner {
+    animation: none;
+  }
+}
+
