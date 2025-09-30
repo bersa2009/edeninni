@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sakinleştirme Rehberi</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header class="header">
+        <h1>Sakinleştirme Rehberi</h1>
+      </header>
+
+      <section class="cards" aria-label="Sakinleştirme önerileri">
+        <article class="card" aria-labelledby="title-aclik">
+          <h3 class="card-title" id="title-aclik">
+            <span class="icon" aria-hidden="true">🤱</span>
+            <span>Açlık</span>
+          </h3>
+          <p class="card-desc">Bebek aç olabilir. Emzirme veya biberonla beslemeyi deneyin.</p>
+          <video class="card-video" controls preload="metadata" aria-label="Açlık için sakinleştirme videosu">
+            <source src="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4" type="video/mp4" />
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </article>
+
+        <article class="card" aria-labelledby="title-gaz">
+          <h3 class="card-title" id="title-gaz">
+            <span class="icon" aria-hidden="true">🚲</span>
+            <span>Gaz</span>
+          </h3>
+          <p class="card-desc">Bisiklet hareketleri ve karın masajı gazı rahatlatabilir.</p>
+          <video class="card-video" controls preload="metadata" aria-label="Gaz için sakinleştirme videosu">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4" />
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </article>
+
+        <article class="card" aria-labelledby="title-uykusuzluk">
+          <h3 class="card-title" id="title-uykusuzluk">
+            <span class="icon" aria-hidden="true">🛌</span>
+            <span>Uykusuzluk</span>
+          </h3>
+          <p class="card-desc">Kundaklama, beyaz gürültü ve nazik sallama uykuya geçişi kolaylaştırır.</p>
+          <video class="card-video" controls preload="metadata" aria-label="Uykusuzluk için sakinleştirme videosu">
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4" />
+            Tarayıcınız video etiketini desteklemiyor.
+          </video>
+        </article>
+      </section>
+    </main>
+
+    <script>
+      // Diğer videoları durdur: aynı anda yalnızca bir video oynasın
+      document.addEventListener(
+        'play',
+        function (event) {
+          if (event.target.tagName !== 'VIDEO') return;
+          document.querySelectorAll('video').forEach(function (videoEl) {
+            if (videoEl !== event.target) videoEl.pause();
+          });
+        },
+        true
+      );
+    </script>
+  </body>
+  </html>
+
